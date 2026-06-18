@@ -1,1 +1,160 @@
-# henrikbohlerholst.github.io
+<!DOCTYPE html>
+<html lang="no">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Karoline & Henrik</title>
+
+  <style>
+    html, body {
+      margin: 0;
+      padding: 0;
+      min-height: 100%;
+      background: #ffffff;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-family: Arial, Helvetica, sans-serif;
+    }
+
+    .page {
+      width: min(100vw, 430px);
+      aspect-ratio: 105 / 148;
+      background: white;
+      text-align: center;
+      position: relative;
+      box-sizing: border-box;
+      padding: 28px 18px 20px;
+      overflow: hidden;
+    }
+
+    h1 {
+      margin: 0;
+      color: #1687ff;
+      font-family: "Comic Sans MS", "Comic Sans", cursive, sans-serif;
+      font-size: clamp(28px, 8vw, 44px);
+      font-weight: 700;
+      letter-spacing: 1px;
+      line-height: 1;
+      position: relative;
+      z-index: 3;
+    }
+
+    .date {
+      margin-top: 12px;
+      font-size: clamp(15px, 4vw, 22px);
+      color: #111;
+      position: relative;
+      z-index: 3;
+    }
+
+    .image-wrap {
+      position: relative;
+      height: 70%;
+      margin-top: 16px;
+    }
+
+    .heart {
+      position: absolute;
+      top: -36px;
+      left: 0;
+      width: 82px;
+      z-index: 4;
+    }
+
+    .couple {
+      width: 100%;
+      height: 100%;
+    }
+
+    svg {
+      overflow: visible;
+    }
+  </style>
+</head>
+
+<body>
+  <main class="page">
+    <h1>KAROLINE &amp; HENRIK</h1>
+    <div class="date">10.-20. juni 2026</div>
+
+    <div class="image-wrap">
+      <!-- Blue heart with wings -->
+      <svg class="heart" viewBox="0 0 160 110">
+        <path d="M42 58 C15 50 13 20 38 22 C54 23 55 40 55 40 C55 40 63 20 82 25 C108 31 101 62 80 80 L58 99 Z"
+              fill="#1687ff" stroke="#000" stroke-width="5" />
+
+        <path d="M43 54 C20 38 14 36 6 45 C17 48 20 53 20 53 C8 52 4 60 4 60 C17 62 24 63 24 63 C13 67 15 75 15 75 C31 75 42 68 51 61"
+              fill="white" stroke="#000" stroke-width="4" stroke-linecap="round" stroke-linejoin="round" />
+
+        <path d="M89 45 C112 22 126 20 130 32 C120 38 119 44 119 44 C132 39 140 46 140 46 C128 53 121 56 121 56 C134 56 137 65 137 65 C121 70 105 63 91 53"
+              fill="white" stroke="#000" stroke-width="4" stroke-linecap="round" stroke-linejoin="round" />
+      </svg>
+
+      <!-- Stick figures -->
+      <svg class="couple" viewBox="0 0 420 520">
+        <!-- Girl hair -->
+        <path d="M130 115 C75 110 58 165 80 210 C86 225 70 248 45 252 C80 270 120 245 117 205"
+              fill="none" stroke="#000" stroke-width="9" stroke-linecap="round" stroke-linejoin="round" />
+
+        <!-- Girl head -->
+        <circle cx="145" cy="145" r="58" fill="white" stroke="#000" stroke-width="9" />
+
+        <!-- Girl hair fringe -->
+        <path d="M95 142 C125 135 158 118 188 88" fill="none" stroke="#000" stroke-width="7" stroke-linecap="round" />
+        <path d="M100 130 C130 128 160 112 188 88" fill="none" stroke="#000" stroke-width="5" stroke-linecap="round" />
+
+        <!-- Girl face -->
+        <line x1="128" y1="145" x2="128" y2="158" stroke="#000" stroke-width="8" stroke-linecap="round" />
+        <line x1="162" y1="145" x2="162" y2="158" stroke="#000" stroke-width="8" stroke-linecap="round" />
+        <path d="M122 178 C137 202 168 202 184 178" fill="none" stroke="#000" stroke-width="7" stroke-linecap="round" />
+
+        <!-- Girl body -->
+        <line x1="145" y1="203" x2="145" y2="258" stroke="#000" stroke-width="8" stroke-linecap="round" />
+        <path d="M145 258 L85 380 L205 380 Z" fill="white" stroke="#000" stroke-width="8" stroke-linejoin="round" />
+
+        <!-- Girl arms -->
+        <line x1="145" y1="255" x2="55" y2="330" stroke="#000" stroke-width="8" stroke-linecap="round" />
+        <line x1="145" y1="255" x2="250" y2="310" stroke="#000" stroke-width="8" stroke-linecap="round" />
+
+        <!-- Girl legs -->
+        <line x1="120" y1="380" x2="105" y2="455" stroke="#000" stroke-width="8" stroke-linecap="round" />
+        <line x1="175" y1="380" x2="190" y2="455" stroke="#000" stroke-width="8" stroke-linecap="round" />
+        <ellipse cx="99" cy="468" rx="23" ry="13" fill="white" stroke="#000" stroke-width="7" />
+        <ellipse cx="197" cy="468" rx="23" ry="13" fill="white" stroke="#000" stroke-width="7" />
+
+        <!-- Boy head -->
+        <circle cx="300" cy="145" r="58" fill="white" stroke="#000" stroke-width="9" />
+
+        <!-- Boy hair -->
+        <line x1="300" y1="83" x2="300" y2="45" stroke="#000" stroke-width="8" stroke-linecap="round" />
+        <line x1="274" y1="90" x2="252" y2="58" stroke="#000" stroke-width="8" stroke-linecap="round" />
+        <line x1="326" y1="90" x2="348" y2="58" stroke="#000" stroke-width="8" stroke-linecap="round" />
+        <line x1="248" y1="112" x2="220" y2="88" stroke="#000" stroke-width="8" stroke-linecap="round" />
+        <line x1="352" y1="112" x2="380" y2="88" stroke="#000" stroke-width="8" stroke-linecap="round" />
+
+        <!-- Boy face -->
+        <line x1="280" y1="145" x2="280" y2="158" stroke="#000" stroke-width="8" stroke-linecap="round" />
+        <line x1="320" y1="145" x2="320" y2="158" stroke="#000" stroke-width="8" stroke-linecap="round" />
+        <path d="M272 178 C288 202 318 202 336 178" fill="none" stroke="#000" stroke-width="7" stroke-linecap="round" />
+
+        <!-- Boy body -->
+        <line x1="300" y1="203" x2="300" y2="345" stroke="#000" stroke-width="8" stroke-linecap="round" />
+
+        <!-- Boy arms -->
+        <line x1="300" y1="255" x2="250" y2="310" stroke="#000" stroke-width="8" stroke-linecap="round" />
+        <line x1="300" y1="255" x2="385" y2="330" stroke="#000" stroke-width="8" stroke-linecap="round" />
+
+        <!-- Holding hands -->
+        <circle cx="250" cy="310" r="12" fill="white" stroke="#000" stroke-width="7" />
+
+        <!-- Boy legs -->
+        <line x1="300" y1="345" x2="260" y2="455" stroke="#000" stroke-width="8" stroke-linecap="round" />
+        <line x1="300" y1="345" x2="340" y2="455" stroke="#000" stroke-width="8" stroke-linecap="round" />
+        <ellipse cx="252" cy="468" rx="23" ry="13" fill="white" stroke="#000" stroke-width="7" />
+        <ellipse cx="348" cy="468" rx="23" ry="13" fill="white" stroke="#000" stroke-width="7" />
+      </svg>
+    </div>
+  </main>
+</body>
+</html>
