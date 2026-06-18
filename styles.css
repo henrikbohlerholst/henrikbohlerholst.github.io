@@ -71,6 +71,15 @@ section p {
   color: #444;
 }
 
+section a {
+  color: #1a6b8a;
+  text-decoration: underline;
+}
+
+section a:hover {
+  color: #0f4a62;
+}
+
 /* ── Image gallery ── */
 .gallery {
   display: grid;
