@@ -1,11 +1,9 @@
-```html
 <!DOCTYPE html>
 <html lang="no">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-  <title>Karianne & Christian</title>
+  <title>Karoline &amp; Henrik</title>
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -14,7 +12,8 @@
   <style>
     :root {
       --background: #fff9cf;
-      --blue: #2f179e;
+      --reveal-background: #fffde9;
+      --blue: #30199f;
     }
 
     * {
@@ -29,98 +28,132 @@
     }
 
     body {
-      color: var(--blue);
       display: flex;
       justify-content: center;
-      font-family: "Patrick Hand", cursive;
+      color: var(--blue);
+      font-family: "Patrick Hand", "Comic Sans MS", cursive;
     }
 
     .page {
       width: min(100%, 680px);
       min-height: 100svh;
-      padding: 26px 24px 80px;
-      text-align: center;
+      padding: 22px 24px 72px;
       overflow: hidden;
+      text-align: center;
     }
 
     .title {
+      display: block;
       width: 100%;
       height: auto;
-      display: block;
-      margin: 0 auto -12px;
+      margin: 0 auto -16px;
       overflow: visible;
     }
 
     .title text {
       fill: var(--blue);
       font-family: "Chewy", "Comic Sans MS", cursive;
-      font-size: 72px;
+      font-size: 79px;
       letter-spacing: 2px;
     }
 
     .winged-heart {
-      width: 72px;
       display: block;
-      margin: -5px auto 58px;
+      width: 67px;
+      margin: -6px auto 56px;
     }
 
-    .rsvp-button {
-      width: min(360px, 64vw);
-      min-height: 82px;
+    .scratch-card {
+      position: relative;
+      display: block;
+      width: min(360px, 68vw);
+      height: 84px;
       margin: 0 auto;
+      padding: 0;
+      overflow: hidden;
+      border: 0;
       border-radius: 9px;
-      background: var(--blue);
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      text-decoration: none;
-      color: white;
-      font-size: 29px;
-      letter-spacing: 2px;
-      transition:
-        transform 0.15s ease,
-        opacity 0.15s ease;
+      background: var(--reveal-background);
+      color: var(--blue);
+      cursor: pointer;
+      font: inherit;
+      box-shadow: 0 0 0 2px rgba(48, 25, 159, 0.08) inset;
+      -webkit-tap-highlight-color: transparent;
+      touch-action: none;
     }
 
-    .rsvp-button span {
-      border-bottom: 2px solid white;
-      line-height: 1.05;
+    .scratch-result {
+      position: absolute;
+      inset: 0;
+      display: grid;
+      place-items: center;
+      font-family: Arial, Helvetica, sans-serif;
+      font-size: clamp(25px, 6vw, 34px);
+      font-weight: 700;
+      letter-spacing: 1px;
     }
 
-    .rsvp-button:hover {
-      transform: translateY(-2px);
-      opacity: 0.92;
+    #scratchCanvas {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
     }
 
-    .deadline {
-      margin: 2px 0 42px;
-      font-size: clamp(22px, 5vw, 31px);
-      letter-spacing: 2px;
+    .scratch-hint {
+      position: absolute;
+      inset: 0;
+      z-index: 2;
+      display: grid;
+      place-items: center;
+      color: #fff;
+      font-family: Arial, Helvetica, sans-serif;
+      font-size: clamp(20px, 5vw, 28px);
+      letter-spacing: 1.5px;
+      text-decoration: underline;
+      text-underline-offset: 5px;
+      pointer-events: none;
+      transition: opacity 0.25s ease;
     }
 
-    .date {
+    .scratch-card.is-scratching .scratch-hint,
+    .scratch-card.is-revealed .scratch-hint {
+      opacity: 0;
+    }
+
+    .gift-caption {
+      min-height: 42px;
+      margin: 7px 0 37px;
+      opacity: 0;
+      transform: translateY(-5px);
+      font-size: clamp(21px, 4.8vw, 30px);
+      letter-spacing: 1.6px;
+      transition: opacity 1.5s ease, transform 1.5s ease;
+    }
+
+    .gift-caption.is-visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .congratulations {
       margin: 0;
-      font-size: clamp(38px, 8vw, 55px);
+      font-size: clamp(38px, 7.7vw, 53px);
       font-weight: 400;
       letter-spacing: 2px;
+      line-height: 1.05;
     }
 
     .swash {
       display: block;
       width: min(260px, 55vw);
-      margin: 12px auto 28px;
+      margin: 13px auto 27px;
     }
 
     .glasses {
       display: block;
-      width: min(260px, 55vw);
-      margin: 0 auto 24px;
-    }
-
-    .venue {
-      margin: 0;
-      font-size: clamp(34px, 7vw, 49px);
-      letter-spacing: 3px;
+      width: min(270px, 57vw);
+      margin: 0 auto;
     }
 
     svg {
@@ -130,25 +163,32 @@
 
     @media (max-width: 480px) {
       .page {
-        padding-top: 18px;
+        padding-top: 16px;
       }
 
       .title text {
-        font-size: 68px;
+        font-size: 76px;
       }
 
       .winged-heart {
-        width: 62px;
-        margin-bottom: 46px;
+        width: 60px;
+        margin-bottom: 45px;
       }
 
-      .rsvp-button {
-        min-height: 70px;
-        font-size: 25px;
+      .scratch-card {
+        width: min(350px, 72vw);
+        height: 73px;
       }
 
-      .deadline {
-        margin-bottom: 38px;
+      .gift-caption {
+        margin-bottom: 34px;
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .gift-caption,
+      .scratch-hint {
+        transition-duration: 0.01ms;
       }
     }
   </style>
@@ -156,177 +196,233 @@
 
 <body>
   <main class="page">
-
-    <!-- Buet overskrift -->
-    <svg class="title" viewBox="0 0 700 300" aria-label="Karianne og Christian">
+    <svg class="title" viewBox="-70 0 840 300" aria-label="Karoline og Henrik">
       <defs>
-        <path
-          id="title-arc"
-          d="M 55 255 Q 350 -15 645 255"
-          fill="none"
-        />
+        <path id="titleArc" d="M 55 250 Q 350 5 645 250" fill="none"></path>
       </defs>
-
       <text>
-        <textPath
-          href="#title-arc"
-          startOffset="50%"
-          text-anchor="middle"
-        >
-          KARIANNE &amp; CHRISTIAN
+        <textPath href="#titleArc" startOffset="50%" text-anchor="middle">
+          KAROLINE &amp; HENRIK
         </textPath>
       </text>
     </svg>
 
-    <!-- Hjerte med vinger -->
     <svg class="winged-heart" viewBox="0 0 160 100" aria-hidden="true">
-      <g
-        fill="none"
-        stroke="var(--blue)"
-        stroke-width="5"
-      >
-        <path d="M80 88
-                 C70 76 45 57 43 35
-                 C41 18 61 12 80 32
-                 C99 12 119 18 117 35
-                 C115 57 90 76 80 88Z" />
-
-        <path d="M44 36
-                 C31 27 19 24 8 27
-                 C13 33 20 36 27 37
-                 C18 38 13 43 11 48
-                 C19 52 27 51 34 49
-                 C28 54 26 59 27 64
-                 C38 62 46 55 51 48" />
-
-        <path d="M116 36
-                 C129 27 141 24 152 27
-                 C147 33 140 36 133 37
-                 C142 38 147 43 149 48
-                 C141 52 133 51 126 49
-                 C132 54 134 59 133 64
-                 C122 62 114 55 109 48" />
+      <g fill="none" stroke="var(--blue)" stroke-width="5">
+        <path d="M80 88 C70 76 45 57 43 35 C41 18 61 12 80 32 C99 12 119 18 117 35 C115 57 90 76 80 88Z"></path>
+        <path d="M44 36 C31 27 19 24 8 27 C13 33 20 36 27 37 C18 38 13 43 11 48 C19 52 27 51 34 49 C28 54 26 59 27 64 C38 62 46 55 51 48"></path>
+        <path d="M116 36 C129 27 141 24 152 27 C147 33 140 36 133 37 C142 38 147 43 149 48 C141 52 133 51 126 49 C132 54 134 59 133 64 C122 62 114 55 109 48"></path>
       </g>
     </svg>
 
-    <!-- RSVP-knapp -->
-    <a
-      class="rsvp-button"
-      href="RSVP-LENKE-HER"
-      target="_blank"
-      rel="noopener noreferrer"
-    >
-      <span>RSVP</span>
-    </a>
+    <button class="scratch-card" id="scratchCard" type="button" aria-label="Skrap for å vise gaven">
+      <span class="scratch-result" aria-live="polite">kr. 2 000</span>
+      <canvas id="scratchCanvas"></canvas>
+      <span class="scratch-hint">Skrap her</span>
+    </button>
 
-    <p class="deadline">FRIST: 01.01.2026</p>
+    <p class="gift-caption" id="giftCaption">TIL DERES BRYLLUPSREISE</p>
 
-    <h2 class="date">19.–20. JUNI 2026</h2>
+    <h2 class="congratulations">GRATULERER MED DAGEN!</h2>
 
-    <!-- Dekorativ strek -->
     <svg class="swash" viewBox="0 0 300 55" aria-hidden="true">
       <path
-        d="M20 17
-           C38 34 74 31 115 27
-           C169 21 226 17 270 24
-           C279 25 284 29 276 32
-           C270 34 263 34 256 34
-           M270 33
-           C277 37 282 41 279 47"
+        d="M20 17 C38 34 74 31 115 27 C169 21 226 17 270 24 C279 25 284 29 276 32 C270 34 263 34 256 34 M270 33 C277 37 282 41 279 47"
         fill="none"
         stroke="var(--blue)"
-        stroke-width="5"
-      />
+        stroke-width="5">
+      </path>
     </svg>
 
-    <!-- Champagneglass -->
-    <svg class="glasses" viewBox="0 0 300 370" aria-label="To champagneglass">
-      <g
-        fill="none"
-        stroke="var(--blue)"
-        stroke-width="5"
-      >
-        <!-- Venstre glass -->
-        <path d="M70 62
-                 C66 111 67 176 83 216
-                 C91 238 103 249 116 247
-                 C129 245 140 228 147 203
-                 C158 161 156 107 150 72
-                 Z" />
+    <svg class="glasses" viewBox="0 0 300 370" aria-label="To champagneglass som skåler">
+      <g fill="none" stroke="var(--blue)" stroke-width="5">
+        <path d="M70 62 C66 111 67 176 83 216 C91 238 103 249 116 247 C129 245 140 228 147 203 C158 161 156 107 150 72 Z"></path>
+        <path d="M75 157 C98 150 121 139 151 126"></path>
+        <path d="M116 247 C116 280 113 309 108 326"></path>
+        <path d="M108 326 C98 338 89 346 74 351"></path>
+        <path d="M74 351 C94 360 128 361 151 355 C137 348 126 340 108 326"></path>
 
-        <path d="M75 157
-                 C98 150 121 139 151 126" />
+        <path d="M158 28 C154 88 157 163 174 210 C182 232 195 244 208 241 C222 238 232 220 238 193 C247 150 243 84 237 35 Z"></path>
+        <path d="M161 142 C185 147 211 156 239 166"></path>
+        <path d="M208 241 C210 277 215 310 224 329"></path>
+        <path d="M224 329 C209 342 197 348 183 353"></path>
+        <path d="M183 353 C209 359 246 357 266 349 C249 344 237 338 224 329"></path>
 
-        <path d="M116 247
-                 C116 280 113 309 108 326" />
+        <circle cx="95" cy="176" r="2" fill="var(--blue)"></circle>
+        <circle cx="119" cy="166" r="2" fill="var(--blue)"></circle>
+        <circle cx="106" cy="194" r="2" fill="var(--blue)"></circle>
+        <circle cx="129" cy="188" r="2" fill="var(--blue)"></circle>
+        <circle cx="184" cy="175" r="2" fill="var(--blue)"></circle>
+        <circle cx="212" cy="183" r="2" fill="var(--blue)"></circle>
+        <circle cx="198" cy="198" r="2" fill="var(--blue)"></circle>
+        <circle cx="224" cy="205" r="2" fill="var(--blue)"></circle>
 
-        <path d="M108 326
-                 C98 338 89 346 74 351" />
-
-        <path d="M74 351
-                 C94 360 128 361 151 355
-                 C137 348 126 340 108 326" />
-
-        <!-- Høyre glass -->
-        <path d="M158 28
-                 C154 88 157 163 174 210
-                 C182 232 195 244 208 241
-                 C222 238 232 220 238 193
-                 C247 150 243 84 237 35
-                 Z" />
-
-        <path d="M161 142
-                 C185 147 211 156 239 166" />
-
-        <path d="M208 241
-                 C210 277 215 310 224 329" />
-
-        <path d="M224 329
-                 C209 342 197 348 183 353" />
-
-        <path d="M183 353
-                 C209 359 246 357 266 349
-                 C249 344 237 338 224 329" />
-
-        <!-- Bobler -->
-        <circle cx="95" cy="176" r="2" fill="var(--blue)" />
-        <circle cx="119" cy="166" r="2" fill="var(--blue)" />
-        <circle cx="106" cy="194" r="2" fill="var(--blue)" />
-        <circle cx="129" cy="188" r="2" fill="var(--blue)" />
-
-        <circle cx="184" cy="175" r="2" fill="var(--blue)" />
-        <circle cx="212" cy="183" r="2" fill="var(--blue)" />
-        <circle cx="198" cy="198" r="2" fill="var(--blue)" />
-        <circle cx="224" cy="205" r="2" fill="var(--blue)" />
-
-        <!-- Skål-streker -->
-        <path d="M52 70 L35 61" />
-        <path d="M55 49 L44 27" />
-        <path d="M69 40 L68 20" />
-
-        <path d="M248 54 L269 45" />
-        <path d="M241 37 L252 17" />
-        <path d="M230 32 L229 13" />
+        <path d="M52 70 L35 61"></path>
+        <path d="M55 49 L44 27"></path>
+        <path d="M69 40 L68 20"></path>
+        <path d="M248 54 L269 45"></path>
+        <path d="M241 37 L252 17"></path>
+        <path d="M230 32 L229 13"></path>
       </g>
     </svg>
-
-    <p class="venue">ROTNES BRUK</p>
-
-    <!-- Nederste dekorative strek -->
-    <svg class="swash" viewBox="0 0 300 55" aria-hidden="true">
-      <path
-        d="M22 43
-           C19 35 20 26 29 23
-           C21 20 20 16 27 13
-           C79 8 126 13 174 20
-           C218 27 254 32 278 20"
-        fill="none"
-        stroke="var(--blue)"
-        stroke-width="5"
-      />
-    </svg>
-
   </main>
+
+  <script>
+    const card = document.getElementById("scratchCard");
+    const canvas = document.getElementById("scratchCanvas");
+    const caption = document.getElementById("giftCaption");
+    const ctx = canvas.getContext("2d", { willReadFrequently: true });
+
+    let drawing = false;
+    let revealed = false;
+    let animationStarted = false;
+    let lastPoint = null;
+    let manualMoves = 0;
+
+    function sizeCanvas() {
+      const rect = card.getBoundingClientRect();
+      const dpr = Math.max(1, window.devicePixelRatio || 1);
+
+      canvas.width = Math.round(rect.width * dpr);
+      canvas.height = Math.round(rect.height * dpr);
+      canvas.style.width = rect.width + "px";
+      canvas.style.height = rect.height + "px";
+
+      ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+      ctx.globalCompositeOperation = "source-over";
+      ctx.fillStyle = getComputedStyle(document.documentElement)
+        .getPropertyValue("--blue")
+        .trim();
+      ctx.fillRect(0, 0, rect.width, rect.height);
+    }
+
+    function pointFromEvent(event) {
+      const rect = canvas.getBoundingClientRect();
+      return {
+        x: event.clientX - rect.left,
+        y: event.clientY - rect.top
+      };
+    }
+
+    function scratchLine(from, to, width = 27) {
+      ctx.save();
+      ctx.globalCompositeOperation = "destination-out";
+      ctx.lineCap = "round";
+      ctx.lineJoin = "round";
+      ctx.lineWidth = width;
+      ctx.beginPath();
+      ctx.moveTo(from.x, from.y);
+      ctx.lineTo(to.x, to.y);
+      ctx.stroke();
+      ctx.restore();
+    }
+
+    function revealGift() {
+      if (revealed) return;
+      revealed = true;
+      card.classList.add("is-revealed");
+      card.setAttribute("aria-label", "Gave: kr. 2 000 til deres bryllupsreise");
+
+      canvas.style.transition = "opacity 0.35s ease";
+      canvas.style.opacity = "0";
+      canvas.style.pointerEvents = "none";
+
+      window.setTimeout(() => {
+        caption.classList.add("is-visible");
+      }, 180);
+    }
+
+    function animateScratch() {
+      if (animationStarted || revealed) return;
+      animationStarted = true;
+      card.classList.add("is-scratching");
+
+      const rect = canvas.getBoundingClientRect();
+      const strokes = 19;
+      let strokeIndex = 0;
+
+      function drawNextStroke() {
+        if (strokeIndex >= strokes) {
+          revealGift();
+          return;
+        }
+
+        const row = strokeIndex % 7;
+        const direction = strokeIndex % 2 === 0 ? 1 : -1;
+        const y = 10 + row * ((rect.height - 20) / 6) + (Math.random() * 8 - 4);
+        const startX = direction === 1 ? -20 : rect.width + 20;
+        const endX = direction === 1 ? rect.width + 20 : -20;
+        const start = performance.now();
+        const duration = 46;
+        let previous = { x: startX, y };
+
+        function frame(now) {
+          const progress = Math.min(1, (now - start) / duration);
+          const current = {
+            x: startX + (endX - startX) * progress,
+            y: y + Math.sin(progress * Math.PI * 2) * 4
+          };
+          scratchLine(previous, current, 30);
+          previous = current;
+
+          if (progress < 1) {
+            requestAnimationFrame(frame);
+          } else {
+            strokeIndex += 1;
+            window.setTimeout(drawNextStroke, 18);
+          }
+        }
+
+        requestAnimationFrame(frame);
+      }
+
+      drawNextStroke();
+    }
+
+    card.addEventListener("click", animateScratch);
+
+    card.addEventListener("keydown", event => {
+      if (event.key === "Enter" || event.key === " ") {
+        event.preventDefault();
+        animateScratch();
+      }
+    });
+
+    canvas.addEventListener("pointerdown", event => {
+      if (revealed) return;
+      drawing = true;
+      manualMoves = 0;
+      card.classList.add("is-scratching");
+      lastPoint = pointFromEvent(event);
+      canvas.setPointerCapture(event.pointerId);
+    });
+
+    canvas.addEventListener("pointermove", event => {
+      if (!drawing || revealed) return;
+      const current = pointFromEvent(event);
+      scratchLine(lastPoint, current, 30);
+      lastPoint = current;
+      manualMoves += 1;
+
+      if (manualMoves > 36) {
+        revealGift();
+      }
+    });
+
+    function endDrawing() {
+      drawing = false;
+      lastPoint = null;
+    }
+
+    canvas.addEventListener("pointerup", endDrawing);
+    canvas.addEventListener("pointercancel", endDrawing);
+    canvas.addEventListener("pointerleave", endDrawing);
+
+    window.addEventListener("resize", () => {
+      if (!revealed) sizeCanvas();
+    });
+
+    sizeCanvas();
+  </script>
 </body>
 </html>
-```
