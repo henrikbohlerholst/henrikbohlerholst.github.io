@@ -1,181 +1,332 @@
+```html
 <!DOCTYPE html>
 <html lang="no">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Karoline & Henrik</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Karianne & Christian</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Chewy&family=Patrick+Hand&display=swap" rel="stylesheet">
 
   <style>
-    html, body {
+    :root {
+      --background: #fff9cf;
+      --blue: #2f179e;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html,
+    body {
       margin: 0;
-      padding: 0;
       min-height: 100%;
-      background: #ffffff;
+      background: var(--background);
+    }
+
+    body {
+      color: var(--blue);
       display: flex;
       justify-content: center;
-      align-items: center;
-      font-family: Arial, Helvetica, sans-serif;
+      font-family: "Patrick Hand", cursive;
     }
 
     .page {
-      width: min(100vw, 430px);
-      aspect-ratio: 105 / 148;
-      background: white;
+      width: min(100%, 680px);
+      min-height: 100svh;
+      padding: 26px 24px 80px;
       text-align: center;
-      position: relative;
-      box-sizing: border-box;
-      padding: 28px 18px 20px;
       overflow: hidden;
     }
 
-    h1 {
-      margin: 0;
-      color: #1687ff;
-      font-family: "Comic Sans MS", "Comic Sans", cursive, sans-serif;
-      font-size: clamp(28px, 8vw, 44px);
-      font-weight: 700;
-      letter-spacing: 1px;
-      line-height: 1;
-      position: relative;
-      z-index: 3;
+    .title {
+      width: 100%;
+      height: auto;
+      display: block;
+      margin: 0 auto -12px;
+      overflow: visible;
+    }
+
+    .title text {
+      fill: var(--blue);
+      font-family: "Chewy", "Comic Sans MS", cursive;
+      font-size: 72px;
+      letter-spacing: 2px;
+    }
+
+    .winged-heart {
+      width: 72px;
+      display: block;
+      margin: -5px auto 58px;
+    }
+
+    .rsvp-button {
+      width: min(360px, 64vw);
+      min-height: 82px;
+      margin: 0 auto;
+      border-radius: 9px;
+      background: var(--blue);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      text-decoration: none;
+      color: white;
+      font-size: 29px;
+      letter-spacing: 2px;
+      transition:
+        transform 0.15s ease,
+        opacity 0.15s ease;
+    }
+
+    .rsvp-button span {
+      border-bottom: 2px solid white;
+      line-height: 1.05;
+    }
+
+    .rsvp-button:hover {
+      transform: translateY(-2px);
+      opacity: 0.92;
+    }
+
+    .deadline {
+      margin: 2px 0 42px;
+      font-size: clamp(22px, 5vw, 31px);
+      letter-spacing: 2px;
     }
 
     .date {
-      margin-top: 12px;
-      font-size: clamp(15px, 4vw, 22px);
-      color: #111;
-      position: relative;
-      z-index: 3;
-    }
-
-    .image-wrap {
-      position: relative;
-      height: 61%;
-      margin-top: 16px;
-    }
-
-    .heart {
-      position: absolute;
-      top: -36px;
-      left: 0;
-      width: 82px;
-      z-index: 4;
-    }
-
-    .couple {
-      width: 100%;
-      height: 100%;
-    }
-
-    .donation-text {
-      margin-top: 4px;
-      font-size: clamp(17px, 4.4vw, 24px);
-      line-height: 1.25;
-      color: #111;
+      margin: 0;
+      font-size: clamp(38px, 8vw, 55px);
       font-weight: 400;
+      letter-spacing: 2px;
     }
 
-    .bottom-heart {
-      margin-top: 6px;
-      font-size: clamp(28px, 8vw, 44px);
-      color: #1687ff;
-      line-height: 1;
+    .swash {
+      display: block;
+      width: min(260px, 55vw);
+      margin: 12px auto 28px;
+    }
+
+    .glasses {
+      display: block;
+      width: min(260px, 55vw);
+      margin: 0 auto 24px;
+    }
+
+    .venue {
+      margin: 0;
+      font-size: clamp(34px, 7vw, 49px);
+      letter-spacing: 3px;
     }
 
     svg {
-      overflow: visible;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+    }
+
+    @media (max-width: 480px) {
+      .page {
+        padding-top: 18px;
+      }
+
+      .title text {
+        font-size: 68px;
+      }
+
+      .winged-heart {
+        width: 62px;
+        margin-bottom: 46px;
+      }
+
+      .rsvp-button {
+        min-height: 70px;
+        font-size: 25px;
+      }
+
+      .deadline {
+        margin-bottom: 38px;
+      }
     }
   </style>
 </head>
 
 <body>
   <main class="page">
-    <h1>KAROLINE &amp; HENRIK</h1>
-    <div class="date">10.-20. juni 2026</div>
 
-    <div class="image-wrap">
-      <!-- Blue heart with wings -->
-      <svg class="heart" viewBox="0 0 160 110">
-        <path d="M42 58 C15 50 13 20 38 22 C54 23 55 40 55 40 C55 40 63 20 82 25 C108 31 101 62 80 80 L58 99 Z"
-              fill="#1687ff" stroke="#000" stroke-width="5" />
+    <!-- Buet overskrift -->
+    <svg class="title" viewBox="0 0 700 300" aria-label="Karianne og Christian">
+      <defs>
+        <path
+          id="title-arc"
+          d="M 55 255 Q 350 -15 645 255"
+          fill="none"
+        />
+      </defs>
 
-        <path d="M43 54 C20 38 14 36 6 45 C17 48 20 53 20 53 C8 52 4 60 4 60 C17 62 24 63 24 63 C13 67 15 75 15 75 C31 75 42 68 51 61"
-              fill="white" stroke="#000" stroke-width="4" stroke-linecap="round" stroke-linejoin="round" />
+      <text>
+        <textPath
+          href="#title-arc"
+          startOffset="50%"
+          text-anchor="middle"
+        >
+          KARIANNE &amp; CHRISTIAN
+        </textPath>
+      </text>
+    </svg>
 
-        <path d="M89 45 C112 22 126 20 130 32 C120 38 119 44 119 44 C132 39 140 46 140 46 C128 53 121 56 121 56 C134 56 137 65 137 65 C121 70 105 63 91 53"
-              fill="white" stroke="#000" stroke-width="4" stroke-linecap="round" stroke-linejoin="round" />
-      </svg>
+    <!-- Hjerte med vinger -->
+    <svg class="winged-heart" viewBox="0 0 160 100" aria-hidden="true">
+      <g
+        fill="none"
+        stroke="var(--blue)"
+        stroke-width="5"
+      >
+        <path d="M80 88
+                 C70 76 45 57 43 35
+                 C41 18 61 12 80 32
+                 C99 12 119 18 117 35
+                 C115 57 90 76 80 88Z" />
 
-      <!-- Stick figures -->
-      <svg class="couple" viewBox="0 0 420 520">
-        <!-- Girl hair -->
-        <path d="M130 115 C75 110 58 165 80 210 C86 225 70 248 45 252 C80 270 120 245 117 205"
-              fill="none" stroke="#000" stroke-width="9" stroke-linecap="round" stroke-linejoin="round" />
+        <path d="M44 36
+                 C31 27 19 24 8 27
+                 C13 33 20 36 27 37
+                 C18 38 13 43 11 48
+                 C19 52 27 51 34 49
+                 C28 54 26 59 27 64
+                 C38 62 46 55 51 48" />
 
-        <!-- Girl head -->
-        <circle cx="145" cy="145" r="58" fill="white" stroke="#000" stroke-width="9" />
+        <path d="M116 36
+                 C129 27 141 24 152 27
+                 C147 33 140 36 133 37
+                 C142 38 147 43 149 48
+                 C141 52 133 51 126 49
+                 C132 54 134 59 133 64
+                 C122 62 114 55 109 48" />
+      </g>
+    </svg>
 
-        <!-- Girl hair fringe -->
-        <path d="M95 142 C125 135 158 118 188 88" fill="none" stroke="#000" stroke-width="7" stroke-linecap="round" />
-        <path d="M100 130 C130 128 160 112 188 88" fill="none" stroke="#000" stroke-width="5" stroke-linecap="round" />
+    <!-- RSVP-knapp -->
+    <a
+      class="rsvp-button"
+      href="RSVP-LENKE-HER"
+      target="_blank"
+      rel="noopener noreferrer"
+    >
+      <span>RSVP</span>
+    </a>
 
-        <!-- Girl face -->
-        <line x1="128" y1="145" x2="128" y2="158" stroke="#000" stroke-width="8" stroke-linecap="round" />
-        <line x1="162" y1="145" x2="162" y2="158" stroke="#000" stroke-width="8" stroke-linecap="round" />
-        <path d="M122 178 C137 202 168 202 184 178" fill="none" stroke="#000" stroke-width="7" stroke-linecap="round" />
+    <p class="deadline">FRIST: 01.01.2026</p>
 
-        <!-- Girl body -->
-        <line x1="145" y1="203" x2="145" y2="258" stroke="#000" stroke-width="8" stroke-linecap="round" />
-        <path d="M145 258 L85 380 L205 380 Z" fill="white" stroke="#000" stroke-width="8" stroke-linejoin="round" />
+    <h2 class="date">19.–20. JUNI 2026</h2>
 
-        <!-- Girl arms -->
-        <line x1="145" y1="255" x2="55" y2="330" stroke="#000" stroke-width="8" stroke-linecap="round" />
-        <line x1="145" y1="255" x2="250" y2="310" stroke="#000" stroke-width="8" stroke-linecap="round" />
+    <!-- Dekorativ strek -->
+    <svg class="swash" viewBox="0 0 300 55" aria-hidden="true">
+      <path
+        d="M20 17
+           C38 34 74 31 115 27
+           C169 21 226 17 270 24
+           C279 25 284 29 276 32
+           C270 34 263 34 256 34
+           M270 33
+           C277 37 282 41 279 47"
+        fill="none"
+        stroke="var(--blue)"
+        stroke-width="5"
+      />
+    </svg>
 
-        <!-- Girl legs -->
-        <line x1="120" y1="380" x2="105" y2="455" stroke="#000" stroke-width="8" stroke-linecap="round" />
-        <line x1="175" y1="380" x2="190" y2="455" stroke="#000" stroke-width="8" stroke-linecap="round" />
-        <ellipse cx="99" cy="468" rx="23" ry="13" fill="white" stroke="#000" stroke-width="7" />
-        <ellipse cx="197" cy="468" rx="23" ry="13" fill="white" stroke="#000" stroke-width="7" />
+    <!-- Champagneglass -->
+    <svg class="glasses" viewBox="0 0 300 370" aria-label="To champagneglass">
+      <g
+        fill="none"
+        stroke="var(--blue)"
+        stroke-width="5"
+      >
+        <!-- Venstre glass -->
+        <path d="M70 62
+                 C66 111 67 176 83 216
+                 C91 238 103 249 116 247
+                 C129 245 140 228 147 203
+                 C158 161 156 107 150 72
+                 Z" />
 
-        <!-- Boy head -->
-        <circle cx="300" cy="145" r="58" fill="white" stroke="#000" stroke-width="9" />
+        <path d="M75 157
+                 C98 150 121 139 151 126" />
 
-        <!-- Boy hair -->
-        <line x1="300" y1="83" x2="300" y2="45" stroke="#000" stroke-width="8" stroke-linecap="round" />
-        <line x1="274" y1="90" x2="252" y2="58" stroke="#000" stroke-width="8" stroke-linecap="round" />
-        <line x1="326" y1="90" x2="348" y2="58" stroke="#000" stroke-width="8" stroke-linecap="round" />
-        <line x1="248" y1="112" x2="220" y2="88" stroke="#000" stroke-width="8" stroke-linecap="round" />
-        <line x1="352" y1="112" x2="380" y2="88" stroke="#000" stroke-width="8" stroke-linecap="round" />
+        <path d="M116 247
+                 C116 280 113 309 108 326" />
 
-        <!-- Boy face -->
-        <line x1="280" y1="145" x2="280" y2="158" stroke="#000" stroke-width="8" stroke-linecap="round" />
-        <line x1="320" y1="145" x2="320" y2="158" stroke="#000" stroke-width="8" stroke-linecap="round" />
-        <path d="M272 178 C288 202 318 202 336 178" fill="none" stroke="#000" stroke-width="7" stroke-linecap="round" />
+        <path d="M108 326
+                 C98 338 89 346 74 351" />
 
-        <!-- Boy body -->
-        <line x1="300" y1="203" x2="300" y2="345" stroke="#000" stroke-width="8" stroke-linecap="round" />
+        <path d="M74 351
+                 C94 360 128 361 151 355
+                 C137 348 126 340 108 326" />
 
-        <!-- Boy arms -->
-        <line x1="300" y1="255" x2="250" y2="310" stroke="#000" stroke-width="8" stroke-linecap="round" />
-        <line x1="300" y1="255" x2="385" y2="330" stroke="#000" stroke-width="8" stroke-linecap="round" />
+        <!-- Høyre glass -->
+        <path d="M158 28
+                 C154 88 157 163 174 210
+                 C182 232 195 244 208 241
+                 C222 238 232 220 238 193
+                 C247 150 243 84 237 35
+                 Z" />
 
-        <!-- Holding hands -->
-        <circle cx="250" cy="310" r="12" fill="white" stroke="#000" stroke-width="7" />
+        <path d="M161 142
+                 C185 147 211 156 239 166" />
 
-        <!-- Boy legs -->
-        <line x1="300" y1="345" x2="260" y2="455" stroke="#000" stroke-width="8" stroke-linecap="round" />
-        <line x1="300" y1="345" x2="340" y2="455" stroke="#000" stroke-width="8" stroke-linecap="round" />
-        <ellipse cx="252" cy="468" rx="23" ry="13" fill="white" stroke="#000" stroke-width="7" />
-        <ellipse cx="348" cy="468" rx="23" ry="13" fill="white" stroke="#000" stroke-width="7" />
-      </svg>
-    </div>
+        <path d="M208 241
+                 C210 277 215 310 224 329" />
 
-    <div class="donation-text">
-      Vi donerer herved kr 2&nbsp;000 til deres bryllupsreise!
-    </div>
+        <path d="M224 329
+                 C209 342 197 348 183 353" />
 
-    <div class="bottom-heart">♥</div>
+        <path d="M183 353
+                 C209 359 246 357 266 349
+                 C249 344 237 338 224 329" />
+
+        <!-- Bobler -->
+        <circle cx="95" cy="176" r="2" fill="var(--blue)" />
+        <circle cx="119" cy="166" r="2" fill="var(--blue)" />
+        <circle cx="106" cy="194" r="2" fill="var(--blue)" />
+        <circle cx="129" cy="188" r="2" fill="var(--blue)" />
+
+        <circle cx="184" cy="175" r="2" fill="var(--blue)" />
+        <circle cx="212" cy="183" r="2" fill="var(--blue)" />
+        <circle cx="198" cy="198" r="2" fill="var(--blue)" />
+        <circle cx="224" cy="205" r="2" fill="var(--blue)" />
+
+        <!-- Skål-streker -->
+        <path d="M52 70 L35 61" />
+        <path d="M55 49 L44 27" />
+        <path d="M69 40 L68 20" />
+
+        <path d="M248 54 L269 45" />
+        <path d="M241 37 L252 17" />
+        <path d="M230 32 L229 13" />
+      </g>
+    </svg>
+
+    <p class="venue">ROTNES BRUK</p>
+
+    <!-- Nederste dekorative strek -->
+    <svg class="swash" viewBox="0 0 300 55" aria-hidden="true">
+      <path
+        d="M22 43
+           C19 35 20 26 29 23
+           C21 20 20 16 27 13
+           C79 8 126 13 174 20
+           C218 27 254 32 278 20"
+        fill="none"
+        stroke="var(--blue)"
+        stroke-width="5"
+      />
+    </svg>
+
   </main>
 </body>
 </html>
+```
