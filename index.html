@@ -12,7 +12,6 @@
   <style>
     :root {
       --background: #fff9cf;
-      --reveal-background: #fffde9;
       --blue: #30199f;
     }
 
@@ -40,6 +39,26 @@
       padding: 22px 24px 72px;
       overflow: hidden;
       text-align: center;
+      opacity: 0;
+      animation: fadeIn 2s ease forwards;
+    }
+
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+      }
+
+      to {
+        opacity: 1;
+      }
+    }
+
+    .from-label {
+      margin: 0 0 -20px;
+      font-family: "Chewy", "Comic Sans MS", cursive;
+      font-size: clamp(25px, 5vw, 34px);
+      letter-spacing: 1px;
+      line-height: 1;
     }
 
     .title {
@@ -63,77 +82,12 @@
       margin: -6px auto 56px;
     }
 
-    .scratch-card {
-      position: relative;
-      display: block;
-      width: min(360px, 68vw);
-      height: 84px;
-      margin: 0 auto;
-      padding: 0;
-      overflow: hidden;
-      border: 0;
-      border-radius: 9px;
-      background: var(--reveal-background);
-      color: var(--blue);
-      cursor: pointer;
-      font: inherit;
-      box-shadow: 0 0 0 2px rgba(48, 25, 159, 0.08) inset;
-      -webkit-tap-highlight-color: transparent;
-      touch-action: none;
-    }
-
-    .scratch-result {
-      position: absolute;
-      inset: 0;
-      display: grid;
-      place-items: center;
-      font-family: Arial, Helvetica, sans-serif;
-      font-size: clamp(25px, 6vw, 34px);
-      font-weight: 700;
-      letter-spacing: 1px;
-    }
-
-    #scratchCanvas {
-      position: absolute;
-      inset: 0;
-      width: 100%;
-      height: 100%;
-    }
-
-    .scratch-hint {
-      position: absolute;
-      inset: 0;
-      z-index: 2;
-      display: grid;
-      place-items: center;
-      color: #fff;
-      font-family: Arial, Helvetica, sans-serif;
-      font-size: clamp(20px, 5vw, 28px);
-      letter-spacing: 1.5px;
-      text-decoration: underline;
-      text-underline-offset: 5px;
-      pointer-events: none;
-      transition: opacity 0.25s ease;
-    }
-
-    .scratch-card.is-scratching .scratch-hint,
-    .scratch-card.is-revealed .scratch-hint {
-      opacity: 0;
-    }
-
-    .gift-caption {
-      min-height: 42px;
-      margin: 7px 0 37px;
-      opacity: 0;
-      transform: translateY(-5px);
-      font-size: clamp(21px, 4.8vw, 30px);
-      letter-spacing: 1.6px;
-      transition: opacity 1.5s ease, transform 1.5s ease;
-    }
-
-    .gift-caption.is-visible {
-      opacity: 1;
-      transform: translateY(0);
+    .gift-text {
+      max-width: 520px;
+      margin: 0 auto 42px;
+      font-size: clamp(25px, 5.5vw, 35px);
+      letter-spacing: 1.4px;
+      line-height: 1.15;
     }
 
     .congratulations {
@@ -166,6 +120,10 @@
         padding-top: 16px;
       }
 
+      .from-label {
+        margin-bottom: -2px;
+      }
+
       .title text {
         font-size: 76px;
       }
@@ -175,20 +133,14 @@
         margin-bottom: 45px;
       }
 
-      .scratch-card {
-        width: min(350px, 72vw);
-        height: 73px;
-      }
-
-      .gift-caption {
-        margin-bottom: 34px;
+      .gift-text {
+        margin-bottom: 38px;
       }
     }
 
     @media (prefers-reduced-motion: reduce) {
-      .gift-caption,
-      .scratch-hint {
-        transition-duration: 0.01ms;
+      .page {
+        animation-duration: 0.01ms;
       }
     }
   </style>
@@ -196,9 +148,11 @@
 
 <body>
   <main class="page">
+    <p class="from-label">fra</p>
+
     <svg class="title" viewBox="-70 0 840 300" aria-label="Karoline og Henrik">
       <defs>
-        <path id="titleArc" d="M 55 250 Q 350 5 645 250" fill="none"></path>
+        <path id="titleArc" d="M 55 275 Q 350 60 645 275" fill="none"></path>
       </defs>
       <text>
         <textPath href="#titleArc" startOffset="50%" text-anchor="middle">
@@ -215,13 +169,7 @@
       </g>
     </svg>
 
-    <button class="scratch-card" id="scratchCard" type="button" aria-label="Skrap for å vise gaven">
-      <span class="scratch-result" aria-live="polite">kr. 2 000</span>
-      <canvas id="scratchCanvas"></canvas>
-      <span class="scratch-hint">Skrap her</span>
-    </button>
-
-    <p class="gift-caption" id="giftCaption">TIL DERES BRYLLUPSREISE</p>
+    <p class="gift-text">Vi gir kr 2 000 til deres bryllupsreise</p>
 
     <h2 class="congratulations">GRATULERER MED DAGEN!</h2>
 
@@ -266,163 +214,5 @@
       </g>
     </svg>
   </main>
-
-  <script>
-    const card = document.getElementById("scratchCard");
-    const canvas = document.getElementById("scratchCanvas");
-    const caption = document.getElementById("giftCaption");
-    const ctx = canvas.getContext("2d", { willReadFrequently: true });
-
-    let drawing = false;
-    let revealed = false;
-    let animationStarted = false;
-    let lastPoint = null;
-    let manualMoves = 0;
-
-    function sizeCanvas() {
-      const rect = card.getBoundingClientRect();
-      const dpr = Math.max(1, window.devicePixelRatio || 1);
-
-      canvas.width = Math.round(rect.width * dpr);
-      canvas.height = Math.round(rect.height * dpr);
-      canvas.style.width = rect.width + "px";
-      canvas.style.height = rect.height + "px";
-
-      ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
-      ctx.globalCompositeOperation = "source-over";
-      ctx.fillStyle = getComputedStyle(document.documentElement)
-        .getPropertyValue("--blue")
-        .trim();
-      ctx.fillRect(0, 0, rect.width, rect.height);
-    }
-
-    function pointFromEvent(event) {
-      const rect = canvas.getBoundingClientRect();
-      return {
-        x: event.clientX - rect.left,
-        y: event.clientY - rect.top
-      };
-    }
-
-    function scratchLine(from, to, width = 27) {
-      ctx.save();
-      ctx.globalCompositeOperation = "destination-out";
-      ctx.lineCap = "round";
-      ctx.lineJoin = "round";
-      ctx.lineWidth = width;
-      ctx.beginPath();
-      ctx.moveTo(from.x, from.y);
-      ctx.lineTo(to.x, to.y);
-      ctx.stroke();
-      ctx.restore();
-    }
-
-    function revealGift() {
-      if (revealed) return;
-      revealed = true;
-      card.classList.add("is-revealed");
-      card.setAttribute("aria-label", "Gave: kr. 2 000 til deres bryllupsreise");
-
-      canvas.style.transition = "opacity 0.35s ease";
-      canvas.style.opacity = "0";
-      canvas.style.pointerEvents = "none";
-
-      window.setTimeout(() => {
-        caption.classList.add("is-visible");
-      }, 180);
-    }
-
-    function animateScratch() {
-      if (animationStarted || revealed) return;
-      animationStarted = true;
-      card.classList.add("is-scratching");
-
-      const rect = canvas.getBoundingClientRect();
-      const strokes = 19;
-      let strokeIndex = 0;
-
-      function drawNextStroke() {
-        if (strokeIndex >= strokes) {
-          revealGift();
-          return;
-        }
-
-        const row = strokeIndex % 7;
-        const direction = strokeIndex % 2 === 0 ? 1 : -1;
-        const y = 10 + row * ((rect.height - 20) / 6) + (Math.random() * 8 - 4);
-        const startX = direction === 1 ? -20 : rect.width + 20;
-        const endX = direction === 1 ? rect.width + 20 : -20;
-        const start = performance.now();
-        const duration = 46;
-        let previous = { x: startX, y };
-
-        function frame(now) {
-          const progress = Math.min(1, (now - start) / duration);
-          const current = {
-            x: startX + (endX - startX) * progress,
-            y: y + Math.sin(progress * Math.PI * 2) * 4
-          };
-          scratchLine(previous, current, 30);
-          previous = current;
-
-          if (progress < 1) {
-            requestAnimationFrame(frame);
-          } else {
-            strokeIndex += 1;
-            window.setTimeout(drawNextStroke, 18);
-          }
-        }
-
-        requestAnimationFrame(frame);
-      }
-
-      drawNextStroke();
-    }
-
-    card.addEventListener("click", animateScratch);
-
-    card.addEventListener("keydown", event => {
-      if (event.key === "Enter" || event.key === " ") {
-        event.preventDefault();
-        animateScratch();
-      }
-    });
-
-    canvas.addEventListener("pointerdown", event => {
-      if (revealed) return;
-      drawing = true;
-      manualMoves = 0;
-      card.classList.add("is-scratching");
-      lastPoint = pointFromEvent(event);
-      canvas.setPointerCapture(event.pointerId);
-    });
-
-    canvas.addEventListener("pointermove", event => {
-      if (!drawing || revealed) return;
-      const current = pointFromEvent(event);
-      scratchLine(lastPoint, current, 30);
-      lastPoint = current;
-      manualMoves += 1;
-
-      if (manualMoves > 36) {
-        revealGift();
-      }
-    });
-
-    function endDrawing() {
-      drawing = false;
-      lastPoint = null;
-    }
-
-    canvas.addEventListener("pointerup", endDrawing);
-    canvas.addEventListener("pointercancel", endDrawing);
-    canvas.addEventListener("pointerleave", endDrawing);
-
-    window.addEventListener("resize", () => {
-      if (!revealed) sizeCanvas();
-    });
-
-    sizeCanvas();
-  </script>
 </body>
 </html>
